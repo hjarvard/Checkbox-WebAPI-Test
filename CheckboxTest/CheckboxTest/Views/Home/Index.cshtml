@@ -1,0 +1,41 @@
+﻿@model CheckboxTest.Models.CheckboxViewModel
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+
+    function onComplete(response) {
+        console.dir(response);
+        $("#result-status-code").text(response.status + " " + response.statusText);
+    }
+</script>
+
+<header>
+    <div class="content-wrapper">
+        <div class="float-left">
+            <p class="site-title">
+                <a href="~/">ASP.NET Web API</a>
+            </p>
+        </div>
+    </div>
+</header>
+<div id="body" style="padding: 10px;">
+    @using (Ajax.BeginForm("Post", "api/Values", null, new AjaxOptions { HttpMethod = "POST", OnComplete = "onComplete" }, new { id = "form" }))
+    {
+        @Html.ValidationSummary(true)
+
+        <div>
+            <label>
+                @Html.LabelFor(model => model.TestCheckbox)
+            </label>
+            @Html.EditorFor(model => model.TestCheckbox)
+            <p>
+                @Html.ValidationMessageFor(model => model.TestCheckbox)
+            </p>
+        </div>
+        <input type="submit" value="Submit" />
+    }
+
+    <div>Result status code:</div>
+    <div id="result-status-code"></div>
+</div>
