@@ -2,12 +2,20 @@
 
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/knockout")
 <script type="text/javascript">
 
     function onComplete(response) {
         console.dir(response);
         $("#result-status-code").text(response.status + " " + response.statusText);
     }
+    
+    var model = @Html.Raw(Json.Encode(Model));
+    var viewModel = ko.mapping.fromJS(model);
+    $(function () {
+
+    	ko.applyBindings(viewModel);
+    });
 </script>
 
 <header>
