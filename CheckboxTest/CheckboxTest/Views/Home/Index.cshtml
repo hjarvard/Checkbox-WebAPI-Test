@@ -9,6 +9,9 @@
         console.dir(response);
         $("#result-status-code").text(response.status + " " + response.statusText);
     }
+
+    function onSubmit() {
+    }
     
     var model = @Html.Raw(Json.Encode(Model));
     var viewModel = ko.mapping.fromJS(model);
@@ -28,6 +31,10 @@
     </div>
 </header>
 <div id="body" style="padding: 10px;">
+	<form action="/api/Values/Post" method="post" data-bind=" submit: onSubmit ">
+	<input type="checkbox" name="TextBox" value="" data-bind=" checked: TestCheckbox" />
+	</form>
+
     @using (Ajax.BeginForm("Post", "api/Values", null, new AjaxOptions { HttpMethod = "POST", OnComplete = "onComplete" }, new { id = "form" }))
     {
         @Html.ValidationSummary(true)
